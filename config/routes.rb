@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 resources :maps 
 get 'hello/index' => 'hello#index'
-root 'hello#index'
+root 'posts#index'
 
 resources :relationships, only: [:create, :destroy]
 resources :rooms, only: [:show, :create, :index] do
