@@ -6,9 +6,18 @@
     background-image: -webkit-linear-gradient(right, #9be15d 0%, #00e3ae 100%);
     background-image: linear-gradient(to left, #9be15d 0%, #00e3ae 100%);
 }
+.big_resarch{
+    display:flex;
+    justify-content: center;
+}
+.resarch_tag{
+    width:20%;
+    height:80px;
+    margin-top:15px;
+}
 .post{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
 
 
@@ -22,7 +31,8 @@
     border: solid 3px #0a0a0a;/*線*/
     border-radius: 10px;/*角の丸み*/
     width: 500px;
-    display:item;   
+    display:item; 
+    margin-right: 150px;  
 }
 .postbox br {
     margin: 0; 
@@ -37,9 +47,18 @@
 
 .rankingbox{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     text-align: center;
     
+}
+.iinerank{
+    position: relative;
+    width: 20%;
+
+}
+.minirank{
+    display: flex;
+    justify-content: flex-start;
 }
 .rank1{
     padding: 0.5em 1em;
@@ -51,6 +70,7 @@
     border-radius: 10px;/*角の丸み*/
     width: 500px;
     display:item;   
+    margin-right:150px ;
 }
 
 
@@ -64,6 +84,7 @@
     border-radius: 10px;/*角の丸み*/
     width: 500px;
     display:item;   
+    margin-right:150px ;
 }
 
 .rank3{
@@ -75,9 +96,9 @@
     border: solid 3px #0a0a0a;/*線*/
     border-radius: 10px;/*角の丸み*/
     width: 500px;
-    display:item;   
+    display:item;
+    margin-right:150px ;   
 }
-.main{
-  margin-bottom:200px ;
 
-}
+
+

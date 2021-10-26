@@ -61,4 +61,3 @@ group :production do
   gem 'pg'
 end
 gem 'geocoder'
-gem 'figaro'

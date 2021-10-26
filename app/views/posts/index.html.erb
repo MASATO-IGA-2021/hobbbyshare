@@ -1,151 +1,47 @@
 <%= stylesheet_link_tag 'index', :media => "all" %>
-<!DOCTYPE html>
-<html lang="ja">
-<boby>
+
 <div class= "top">
   <h1>投稿一覧</h1>
   <h5>Hobbyshare</h5>
 </div>
 
 <div class ="main_content">
-  <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
-    <%= select_tag :tag_id,
-                  options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
-                  {
-                    prompt: 'タグで絞り込み検索',
-                    onchange: 'submit(this.form);'
-                  }
-    %>
-  <% end %>
-
-
-    <% if user_signed_in? %>
-    <% end %>
-    <div class = "post">
-    <% @post.each do |t| %>
-        <div class="postbox">
-        <p>ユーザーネーム:</p><a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-        <br><%= image_tag t.image_url, size: "320x280" if t.image? %></br>
-        <p1><%= t.body %></p1>
-        <% t.tags.each do |tag| %>
-          <br>tag:<%= tag.name %></br>
-        <% end %>
-        <% if user_signed_in? %>
-          <% if current_user.already_liked?(t) %>
-            <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
-              <i class="fas fa-heart"></i><%= t.likes.count %>
-            <% end %>
-          <% else %>
-              <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
-                <i class="far fa-heart"></i><%= t.likes.count %>
-              <% end %>
-          <% end %>
-        <% else %>
-          <i class="far fa-heart"></i><%= t.likes.count %>
-        <% end %>
-
-        
-        <%= t.created_at %>
-        <%= link_to "詳細へ", post_path(t.id) %>
-        <% if user_signed_in? && current_user.id == t.user_id %>
-          <%= link_to "編集する", edit_post_path(t.id) %>
-          <%= button_to "削除する", post_path(t.id), method: :delete %>
-        <% end %>      
-        </div>
-    
-      
-    <% end %>
+  <div class ="big_resarch">
+    <div class ="resarch_tag">
+      <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+        <%= select_tag :tag_id,
+                      options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                      {
+                        prompt: 'タグで絞り込み検索',
+                        onchange: 'submit(this.form);'
+                      }
+        %>
+      <% end %>
     </div>
-
-
   </div>
-  <div class ="rankingbox">
-    <h2>いいねランキング</h2>
-      <% @rank_posts.each.with_index(1) do |t,i| %> 
-      <div class ="rankbox1">
-      <% if i==1 %>
-        1位  
-        <div class="rank1">
-            ユーザーネーム:<a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-              <br><%= image_tag t.image_url, size: "250x200" if t.image? %><br>
-              <br><%= t.body %></br>
-              <% t.tags.each do |tag| %>
-              <br><%= tag.name %></br>
-              <% end %>
-          <% if user_signed_in? %>
-              <% if current_user.already_liked?(t) %>
-                  <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
-                      <i class="fas fa-heart"></i><%= t.likes.count %>
-                  <% end %>
-              <% else %>
-                  <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
-                        <i class="far fa-heart"></i><%= t.likes.count %>
-                  <% end %>
-              <% end %>
-          <% else %>
-            <i class="far fa-heart"></i><%= t.likes.count %>
-          <% end %>
 
-          <%= t.created_at %>
-          <%= link_to "詳細へ", post_path(t.id) %>
-          <% if user_signed_in? && current_user.id == t.user_id %>
-            <%= link_to "編集する", edit_post_path(t.id) %>
-            <%= button_to "削除する", post_path(t.id), method: :delete %>
-          <% end %>      
-        </div>
-      <p id="notice"><%= notice %></p>
-    <% elsif i==2 %>
-      2位
-      <div class="rank2">
-        ユーザーネーム:<a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-        <br><%= image_tag t.image_url, size: "250x200" if t.image? %></br>
-        <br><%= t.body %></br>
-        <% t.tags.each do |tag| %>
-          <br><%= tag.name %></br>
-        <% end %>
-        <% if user_signed_in? %>
-          <% if current_user.already_liked?(t) %>
-            <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
-            <i class="fas fa-heart"></i><%= t.likes.count %>
-          <% end %>
-        <% else %>
-          <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
-          <i class="far fa-heart"></i><%= t.likes.count %>
-          <% end %>
-        <% end %>
-        <% else %>
-          <i class="far fa-heart"></i><%= t.likes.count %>
-        <% end %>
 
-        
-        <%= t.created_at %>
-        <%= link_to "詳細へ", post_path(t.id) %>
-        <% if user_signed_in? && current_user.id == t.user_id %>
-          <%= link_to "編集する", edit_post_path(t.id) %>
-          <%= button_to "削除する", post_path(t.id), method: :delete %>
-        <% end %>      
-      </div>
-      <p id="notice"><%= notice %></p>
-    <% elsif i==3 %>
-      3位
-      <div class="rank3">
-            
-        ユーザーネーム:<a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-          <br><%= image_tag t.image_url, size: "250x200" if t.image? %></br>
-          <br><%= t.body %></br>
+    
+    <div class = "post">
+      <% @post.each do |t| %>
+        <div class="postbox">
+          <p>ユーザーネーム:</p>
+          <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+          <br><%= image_tag t.image_url, size: "320x280" if t.image? %></br>
+          <p1><%= t.body %></p1>
           <% t.tags.each do |tag| %>
-            <br><%= tag.name %></br>
+            <br>tag:<%= tag.name %></br>
           <% end %>
           <% if user_signed_in? %>
             <% if current_user.already_liked?(t) %>
               <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
-              <i class="fas fa-heart"></i><%= t.likes.count %>
+                <i class="fas fa-heart"></i><%= t.likes.count %>
+              <% end %>
+            <% else %>
+                <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+                  <i class="far fa-heart"></i><%= t.likes.count %>
+                <% end %>
             <% end %>
-          <% else %>
-            <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
-            <i class="far fa-heart"></i><%= t.likes.count %>
-            <% end %>
-          <% end %>
           <% else %>
             <i class="far fa-heart"></i><%= t.likes.count %>
           <% end %>
@@ -158,11 +54,123 @@
             <%= button_to "削除する", post_path(t.id), method: :delete %>
           <% end %>      
         </div>
-        <p id="notice"><%= notice %></p>
+      
+        
+      <% end %>
+    </div>
 
-  <% end %>
+
   </div>
-  <% end %>
+  <div class ="rankingbox">
+    <div class ="iinerank">
+      <h2>いいねランキング</h2>
+    </div>
+    <div class ="minirank">
+      <% @rank_posts.each.with_index(1) do |t,i| %> 
+        <div class ="rankbox1">
+          <% if i==1 %>
+            <div class="ichii">
+            <b>1位 </b> 
+            </div>
+            <div class="rank1">
+                ユーザーネーム:<a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+                  <br><%= image_tag t.image_url, size: "250x200" if t.image? %><br>
+                  <br><%= t.body %></br>
+                  <% t.tags.each do |tag| %>
+                  <br><%= tag.name %></br>
+                  <% end %>
+              <% if user_signed_in? %>
+                  <% if current_user.already_liked?(t) %>
+                      <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+                          <i class="fas fa-heart"></i><%= t.likes.count %>
+                      <% end %>
+                  <% else %>
+                      <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+                            <i class="far fa-heart"></i><%= t.likes.count %>
+                      <% end %>
+                  <% end %>
+              <% else %>
+                <i class="far fa-heart"></i><%= t.likes.count %>
+              <% end %>
+
+              <%= t.created_at %>
+              <%= link_to "詳細へ", post_path(t.id) %>
+              <% if user_signed_in? && current_user.id == t.user_id %>
+                <%= link_to "編集する", edit_post_path(t.id) %>
+                <%= button_to "削除する", post_path(t.id), method: :delete %>
+              <% end %>      
+            </div>
+            <p id="notice"><%= notice %></p>
+          <% elsif i==2 %>
+            2位
+            <div class="rank2">
+              ユーザーネーム:<a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+              <br><%= image_tag t.image_url, size: "250x200" if t.image? %></br>
+              <br><%= t.body %></br>
+              <% t.tags.each do |tag| %>
+                <br><%= tag.name %></br>
+              <% end %>
+              <% if user_signed_in? %>
+                <% if current_user.already_liked?(t) %>
+                  <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+                  <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              <% else %>
+                <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+                <i class="far fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              <% end %>
+              <% else %>
+                <i class="far fa-heart"></i><%= t.likes.count %>
+              <% end %>
+
+              
+              <%= t.created_at %>
+              <%= link_to "詳細へ", post_path(t.id) %>
+              <% if user_signed_in? && current_user.id == t.user_id %>
+                <%= link_to "編集する", edit_post_path(t.id) %>
+                <%= button_to "削除する", post_path(t.id), method: :delete %>
+              <% end %>      
+            </div>
+            <p id="notice"><%= notice %></p>
+          <% elsif i==3 %>
+            3位
+            <div class="rank3">
+                  
+              ユーザーネーム:<a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+                <br><%= image_tag t.image_url, size: "250x200" if t.image? %></br>
+                <br><%= t.body %></br>
+                <% t.tags.each do |tag| %>
+                  <br><%= tag.name %></br>
+                <% end %>
+                <% if user_signed_in? %>
+                  <% if current_user.already_liked?(t) %>
+                    <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+                    <i class="fas fa-heart"></i><%= t.likes.count %>
+                  <% end %>
+                <% else %>
+                  <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+                  <i class="far fa-heart"></i><%= t.likes.count %>
+                  <% end %>
+                <% end %>
+                <% else %>
+                  <i class="far fa-heart"></i><%= t.likes.count %>
+                <% end %>
+
+                
+                <%= t.created_at %>
+                <%= link_to "詳細へ", post_path(t.id) %>
+                <% if user_signed_in? && current_user.id == t.user_id %>
+                  <%= link_to "編集する", edit_post_path(t.id) %>
+                  <%= button_to "削除する", post_path(t.id), method: :delete %>
+                <% end %>      
+              </div>
+              <p id="notice"><%= notice %></p>
+
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 </div>  
 
 <div id='map'></div>
@@ -224,6 +232,28 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
 </body>
 
-
+<footer>
+  <div class ="foot">
+    <div class="navigation">
+    <!-- 階層に分けてナビゲーションの骨組みを作成 -->
+      <ul>
+        <li class="button">
+          <p><a href="#"><%= link_to "新規投稿へ", new_post_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to "投稿一覧に戻る", posts_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to "チャットルーム", rooms_path %></a></p>
+        </li>
+      
+        <li class="button">
+          <p><a href="#"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></a></p>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</footer>
 
 

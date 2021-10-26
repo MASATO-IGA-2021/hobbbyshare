@@ -1,19 +1,35 @@
-<div class="cp_card01">
-<div class="photo"><div class="photo1"></div></div>
-<ul class="details">
-    <li class="author"><a href="#">Copyright</a></li>
-    <li class="date">2021.06.18</li>
-    <li class="tags">
-        <ul>
-            <li><a href="#"><%= link_to "Login", posts_path %></a></li>
-            <li><a href="#"><%= link_to "Signup", new_user_registration_path %></a></li>
-        </ul>
-    </li>
-</ul>
-<div class="description">
-    <h1>HOBBYSHARE</h1>
-    <h2>Let's hobby share! </h2>
-    <p class="text"></p>
-    <a href="#">Read More</a>
+<%= stylesheet_link_tag 'hello.index', :media => "all" %>
+<div class ="hobbyphoto">
+    <div class="headcon">
+        <div class="karabako1">
+        </div>
+        
+        
+        <div class="tags">
+            <div class="tag1">
+                <a href= "/users/sign_in">Login<a>
+            </div>
+            <div class="tag2">
+                <a href= "/users/sign_up">Signup<a> 
+            </div>
+        </div>
+    </div>
+    <div class ="midlesizebox">
+        <div class="details">
+            <div class="description">
+                <div class="thema">
+                    <h1>HOBBYSHARE!</h1>
+                </div>
+                <div class ="explanation">
+                    <h2>Let's hobby share! </h2>
+                </div>
+            </div>
+        </div>
+        <div class ="bottom_line">
+            <p>Copyright<p>
+            <p>2021.06.18<p>
+        </div>
+    </div>    
 </div>
+
 
