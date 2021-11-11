@@ -59,4 +59,7 @@ body {
     .navigation:hover .button:hover > p {
       font-weight: bold;
     }
+footer p{
+  text-align: center;
+}
 
