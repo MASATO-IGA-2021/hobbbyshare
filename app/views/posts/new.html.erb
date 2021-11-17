@@ -1,9 +1,32 @@
 <%= stylesheet_link_tag 'new', :media => "all" %>
+
 <div class="head">
   <%= current_user.id %>
   <h1>新規投稿</h1>
   <h5>Hobbyshare</h5>
 </div>
+<div class ="foot">
+    <div class="navigation">
+    <!-- 階層に分けてナビゲーションの骨組みを作成 -->
+      <ul>
+        <li class="button">
+          <p><a href="#"><%= link_to "新規投稿へ", new_post_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to "投稿一覧に戻る", posts_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to "チャットルーム", rooms_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to 'マイページ',  "/users/#{current_user.id}" %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></a></p>
+        </li>
+      </ul>
+    </div>
+  </div>
 <div class ="main">
   <%= form_with(model: @post, local: true) do |f| %>
     <div class="field1">
@@ -114,26 +137,6 @@ function codeAddress(){
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
 
 <footer>
-  <div class ="foot">
-    <div class="navigation">
-    <!-- 階層に分けてナビゲーションの骨組みを作成 -->
-      <ul>
-        <li class="button">
-          <p><a href="#"><%= link_to "新規投稿へ", new_post_path %></a></p>
-        </li>
-        <li class="button">
-          <p><a href="#"><%= link_to "投稿一覧に戻る", posts_path %></a></p>
-        </li>
-        <li class="button">
-          <p><a href="#"><%= link_to "チャットルーム", rooms_path %></a></p>
-        </li>
-      
-        <li class="button">
-          <p><a href="#"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></a></p>
-        </li>
-        
-      </ul>
-    </div>
-  </div>
+ 
 </footer>
 

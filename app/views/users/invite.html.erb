@@ -1,18 +1,40 @@
 <%= stylesheet_link_tag 'users.invite', :media => "all" %>
-<body>
-<div class="header">
-<h3>フォロー一覧</h3>
-</div>
 
-<div class ="main">
-<% @user.following.each do |user| %>
-    <% if Entry.exists?(user_id: user.id) %>
-        <br><%= user.name %>さん 招待済み</br>
-    <% else %>
-        <%= link_to entries_room_path(id: params[:id], user_id: user.id), method: :post do %>
-        <%= user.name %>
+<div class="header">
+    <h3>フォロー一覧</h3>
+</div>
+<div class ="foot">
+    <div class="navigation">
+    <!-- 階層に分けてナビゲーションの骨組みを作成 -->
+      <ul>
+        <li class="button">
+          <p><a href="#"><%= link_to "新規投稿へ", new_post_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to "投稿一覧に戻る", posts_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to "チャットルーム", rooms_path %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to 'マイページ',  "/users/#{current_user.id}" %></a></p>
+        </li>
+        <li class="button">
+          <p><a href="#"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></a></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+<body>
+    <div class ="main">
+    <% @user.following.each do |user| %>
+        <% if Entry.exists?(user_id: user.id) %>
+            <br><%= user.name %>さん 招待済み</br>
+        <% else %>
+            <%= link_to entries_room_path(id: params[:id], user_id: user.id), method: :post do %>
+            <%= user.name %>
+            <% end %>
         <% end %>
     <% end %>
-<% end %>
-</div>
+    </div>
 </body>
